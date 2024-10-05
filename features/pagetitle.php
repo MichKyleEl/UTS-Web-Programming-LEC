@@ -1,3 +1,3 @@
 <div class="pagetitle">
-        <h1>{Nama Page}</h1>
+        <h1><?php echo $pagename; ?></h1>
 </div>
