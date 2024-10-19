@@ -44,6 +44,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                     // Credentials are correct for regular users, set session variables
                     $_SESSION['user_name'] = $user['user_name'];
                     $_SESSION['user_role'] = $user['role'];
+                    $_SESSION['user_email'] = $user['user_email'];
 
                     // Redirect to user dashboard
                     header("Location: index.php");

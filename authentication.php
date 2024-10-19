@@ -18,6 +18,7 @@ if (!isset($_SESSION['user_name']) && !in_array($current_page, ['login.php', 'si
 if (isset($_SESSION['user_name'])) {
     $name = $_SESSION['user_name'];
     $role = $_SESSION['user_role'];
+    $email = $_SESSION['user_email'];
 
     // Role-based access control
     if ($role === 'admin' && in_array($current_page, $user_pages)) {
