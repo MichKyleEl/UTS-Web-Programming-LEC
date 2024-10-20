@@ -16,8 +16,11 @@ if (!isset($_SESSION['user_name']) && !in_array($current_page, ['login.php', 'si
 
 // Fetch session values to be used globally (if session exists)
 if (isset($_SESSION['user_name'])) {
+    $id = $_SESSION['user_id'];
     $name = $_SESSION['user_name'];
     $role = $_SESSION['user_role'];
+    $email = $_SESSION['user_email'];
+    $foto = $_SESSION['user_foto'];
 
     // Role-based access control
     if ($role === 'admin' && in_array($current_page, $user_pages)) {
