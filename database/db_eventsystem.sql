@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 5.2.1
+-- version 5.1.1
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Oct 05, 2024 at 10:40 PM
--- Server version: 10.4.28-MariaDB
--- PHP Version: 8.2.4
+-- Generation Time: Oct 20, 2024 at 01:56 PM
+-- Server version: 10.4.20-MariaDB
+-- PHP Version: 7.3.29
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -38,7 +38,7 @@ CREATE TABLE `tb_event` (
   `event_image` varchar(200) DEFAULT NULL,
   `event_banner` varchar(200) DEFAULT NULL,
   `event_status` enum('open','closed','canceled') DEFAULT 'open'
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Dumping data for table `tb_event`
@@ -59,7 +59,7 @@ CREATE TABLE `tb_registration` (
   `user_id` int(11) NOT NULL,
   `event_id` int(11) NOT NULL,
   `registration_date` timestamp NOT NULL DEFAULT current_timestamp()
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Dumping data for table `tb_registration`
@@ -82,18 +82,19 @@ CREATE TABLE `tb_user` (
   `user_email` varchar(100) NOT NULL,
   `user_password` varchar(255) NOT NULL,
   `role` enum('admin','user') NOT NULL DEFAULT 'user',
-  `created_at` timestamp NOT NULL DEFAULT current_timestamp()
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+  `created_at` timestamp NOT NULL DEFAULT current_timestamp(),
+  `foto` varchar(100) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Dumping data for table `tb_user`
 --
 
-INSERT INTO `tb_user` (`user_id`, `user_name`, `user_email`, `user_password`, `role`, `created_at`) VALUES
-(1, 'Admin', 'admin@gmail.com', 'admingrup5thebest', 'admin', '2024-10-05 18:01:28'),
-(2, 'David Garcia Saragih', 'david@gmail.com', '$2y$10$ECcXQNVz5t9qfH2uaDwDD.Wp8GXOeRT1RVADeplYyIUP7uzGdL/mK', 'user', '2024-10-05 18:43:13'),
-(3, 'Michael Elbert', 'michael@gmail.com', '$2y$10$FwOzxf9B0CGr09tQCo9C5eA11nkzoYjWYFBGRU5pZtQOOo/8fYIyO', 'user', '2024-10-05 19:09:08'),
-(4, 'Ben Arief Sihotang', 'benarief@gmail.com', '$2y$10$sX49QKcCQPBPw3pbIKFuk.IgdFoDFuz8pfaPRGvskOf7t03XkLdCu', 'user', '2024-10-05 19:09:23');
+INSERT INTO `tb_user` (`user_id`, `user_name`, `user_email`, `user_password`, `role`, `created_at`, `foto`) VALUES
+(1, 'Admin', 'admin@gmail.com', 'admingrup5thebest', 'admin', '2024-10-05 18:01:28', NULL),
+(2, 'David Garcia Saragih', 'david@gmail.com', '$2y$10$h435hyEwytoitrPnHTFIZ.E8RksR.P1RE9sSNNShAKyZy10k6Bi2C', 'user', '2024-10-05 18:43:13', NULL),
+(3, 'Michael Elbert', 'michael@gmail.com', '$2y$10$FwOzxf9B0CGr09tQCo9C5eA11nkzoYjWYFBGRU5pZtQOOo/8fYIyO', 'user', '2024-10-05 19:09:08', NULL),
+(4, 'Ben Arief Sihotang', 'benarief@gmail.com', '$2y$10$sX49QKcCQPBPw3pbIKFuk.IgdFoDFuz8pfaPRGvskOf7t03XkLdCu', 'user', '2024-10-05 19:09:23', NULL);
 
 --
 -- Indexes for dumped tables
