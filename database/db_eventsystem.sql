@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Oct 20, 2024 at 01:56 PM
+-- Generation Time: Oct 20, 2024 at 07:57 AM
 -- Server version: 10.4.20-MariaDB
 -- PHP Version: 7.3.29
 
@@ -92,7 +92,7 @@ CREATE TABLE `tb_user` (
 
 INSERT INTO `tb_user` (`user_id`, `user_name`, `user_email`, `user_password`, `role`, `created_at`, `foto`) VALUES
 (1, 'Admin', 'admin@gmail.com', 'admingrup5thebest', 'admin', '2024-10-05 18:01:28', NULL),
-(2, 'David Garcia Saragih', 'david@gmail.com', '$2y$10$h435hyEwytoitrPnHTFIZ.E8RksR.P1RE9sSNNShAKyZy10k6Bi2C', 'user', '2024-10-05 18:43:13', NULL),
+(2, 'David Garcia Saragih', 'david@gmail.com', '$2y$10$ECcXQNVz5t9qfH2uaDwDD.Wp8GXOeRT1RVADeplYyIUP7uzGdL/mK', 'user', '2024-10-05 18:43:13', NULL),
 (3, 'Michael Elbert', 'michael@gmail.com', '$2y$10$FwOzxf9B0CGr09tQCo9C5eA11nkzoYjWYFBGRU5pZtQOOo/8fYIyO', 'user', '2024-10-05 19:09:08', NULL),
 (4, 'Ben Arief Sihotang', 'benarief@gmail.com', '$2y$10$sX49QKcCQPBPw3pbIKFuk.IgdFoDFuz8pfaPRGvskOf7t03XkLdCu', 'user', '2024-10-05 19:09:23', NULL);
 

@@ -12,7 +12,9 @@ require 'features/sidebar.php';
 
 <!-- main -->
 <main id="main" class="main">
+
 <?php
+require 'features/alert.php';
 require 'features/pagetitle.php'; 
 ?>
 
@@ -24,7 +26,7 @@ require 'features/pagetitle.php';
                 class="card-body profile-card pt-4 d-flex flex-column align-items-center"
               >
                 <img
-                  src="assets/img/profile-img.jpg"
+                  src="<?php echo ($foto == NULL) ? 'assets/img/profile-img.jpg' : 'uploads/profile/' . $foto; ?>"
                   alt="Profile"
                   class="rounded-circle"
                 />
@@ -66,7 +68,7 @@ require 'features/pagetitle.php';
                     id="profile-edit"
                   >
                     <!-- Profile Edit Form -->
-                    <form>
+                    <form action="updateprofile.php" METHOD="POST" enctype="multipart/form-data">
                       <div class="row mb-3">
                         <label
                           for="profileImage"
@@ -74,19 +76,18 @@ require 'features/pagetitle.php';
                           >Profile Image</label
                         >
                         <div class="col-md-8 col-lg-9">
-                          <img src="assets/img/profile-img.jpg" alt="Profile" />
+                          <img id="profileImage" 
+                          src="<?php echo ($foto == NULL) ? 'assets/img/profile-img.jpg' : 'uploads/profile/' . $foto; ?>" 
+                          alt="Profile" 
+                          style="max-width: 150px;max-height:150px">
                           <div class="pt-2">
+                            <input type="hidden" name="hiddenID" value="<?php echo $id ?>">
+                          <input type="file" id="fileUpload" name="foto" style="display: none;" onchange="handleFileChange(event)" />
                             <a
                               href="#"
                               class="btn btn-primary btn-sm"
                               title="Upload new profile image"
-                              ><i class="bi bi-upload"></i
-                            ></a>
-                            <a
-                              href="#"
-                              class="btn btn-danger btn-sm"
-                              title="Remove my profile image"
-                              ><i class="bi bi-trash"></i
+                              onclick="triggerFileUpload()"><i class="bi bi-upload"></i
                             ></a>
                           </div>
                         </div>
@@ -137,7 +138,7 @@ require 'features/pagetitle.php';
 
                   <div class="tab-pane fade pt-3" id="profile-change-password">
                     <!-- Change Password Form -->
-                    <form>
+                    <form action="updatepassword.php" METHOD="POST">
                       <div class="row mb-3">
                         <label
                           for="currentPassword"
@@ -190,6 +191,29 @@ require 'features/pagetitle.php';
 </main>
 <!-- end main -->
 
+<!-- javascript buat handling edit file -->
+ <script>
+
+function triggerFileUpload() {
+  document.getElementById('fileUpload').click();
+}
+
+
+function handleFileChange(event) {
+  const file = event.target.files[0];
+  
+  if (file) {
+    const reader = new FileReader();
+    
+    reader.onload = function(e) {
+      document.getElementById('profileImage').src = e.target.result;
+    };
+    
+    reader.readAsDataURL(file);
+  }
+}
+
+ </script>
 <?php
 require 'features/footer.php'; 
 ?>
