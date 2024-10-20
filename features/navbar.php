@@ -19,7 +19,11 @@
                 <li class="nav-item dropdown pe-3">
 
                     <a class="nav-link nav-profile d-flex align-items-center pe-0" href="#" data-bs-toggle="dropdown">
+                        <?php if($foto == NULL) { ?>
                         <img src="assets/img/profile-img.jpg" alt="Profile" class="rounded-circle">
+                        <?php } else { ?>
+                        <img src="uploads/profile/<?php echo $foto; ?>" alt="Profile" class="rounded-circle">
+                        <?php } ?>
                         <span class="d-none d-md-block dropdown-toggle ps-2"><?php echo htmlspecialchars(explode(' ', $name)[0]); ?></span>
                     </a>
 
