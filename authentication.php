@@ -9,7 +9,7 @@ $admin_pages = ['admin.php', 'adminevent.php', 'listofregistrant.php', 'usermana
 $user_pages = ['index.php', 'event.php', 'eventregistration.php'];
 
 // Redirect to login if not logged in, and not on login.php or signup.php
-if (!isset($_SESSION['user_name']) && !in_array($current_page, ['login.php', 'signup.php'])) {
+if (!isset($_SESSION['user_name']) && !in_array($current_page, ['login.php', 'signup.php', 'forgot_password.php', 'reset_password.php'])) {
     header("Location: login.php");
     exit();
 }
