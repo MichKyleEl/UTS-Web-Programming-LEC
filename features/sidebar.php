@@ -59,7 +59,7 @@
         <li class="nav-item">
             <a class="nav-link <?php echo ($urlname === 'eventregistration.php') ? '' : 'collapsed'; ?>" href="eventregistration.php">
                 <i class="bi bi-pencil-square"></i>
-                <span>Event Registration</span>
+                <span>Registered Events</span>
             </a>
         </li>
         <?php endif; ?>
