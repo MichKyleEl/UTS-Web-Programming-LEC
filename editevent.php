@@ -83,8 +83,9 @@ require 'features/sidebar.php';
     <?php
     require 'features/pagetitle.php';
     ?>
-    <form action="" method="post" enctype="multipart/form-data">
+    <form action="" method="post">
         <input type="hidden" name="event_id" id="event_id" value="<?= $data["event_id"]; ?>">
+        <input type="hidden" name="event_image" id="event_image" value="<?= $data["event_image"]; ?>">
         <div class="container mb-5">
             <div class="form-group mb-4">
                 <label for="event_name">Event Name</label>
