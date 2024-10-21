@@ -132,10 +132,77 @@ $registration = $reg->fetch(PDO::FETCH_ASSOC);
                 <p class="card-text"><small class="text-muted">Location: <?php echo htmlspecialchars($event['event_location']); ?></small></p>
                 <p class="card-text"><?php echo htmlspecialchars($event['event_description']); ?></p>
                 <?php if (!$registration): ?>
-                <a href="registerevent.php?event_id=<?php echo $eventID; ?>" class="btn btn-primary">Register</a>
+                  <a class="btn btn-primary" data-bs-toggle="modal"
+                  data-bs-target="#verticalycentered">Register</a>
                 <?php else: ?>
-                <a href="cancelevent.php?event_id=<?php echo $eventID; ?>" class="btn btn-danger" onclick="alert('Are You Sure?');">Cancel</a>
+                <a class="btn btn-danger" data-bs-toggle="modal"
+                data-bs-target="#verticalycentered2">Cancel</a>
                 <?php endif; ?>
+
+                <!-- modal cancel -->
+                <div class="modal fade" id="verticalycentered2" tabindex="-1">
+                  <div class="modal-dialog modal-dialog-centered">
+                    <div class="modal-content">
+                      <div class="modal-header">
+                        <h5 class="modal-title">Cancel Event?</h5>
+                        <button
+                          type="button"
+                          class="btn-close"
+                          data-bs-dismiss="modal"
+                          aria-label="Close"
+                        ></button>
+                      </div>
+                      <div class="modal-body">
+                        Are you sure you want to cancel <?php echo htmlspecialchars($event['event_name']); ?> ?
+                        <p class="text-muted">Event Date & Time: <?php echo htmlspecialchars($event['event_date']) . ',' . htmlspecialchars($event['event_time']); ?></p>
+                        <p class="text-muted">
+                        Location: <?php echo htmlspecialchars($event['event_location']); ?>
+                        <br>
+                        <?php echo htmlspecialchars($event['event_description']); ?>
+                      </div>
+                      <div class="modal-footer">
+                        <button
+                          type="button"
+                          class="btn btn-secondary"
+                          data-bs-dismiss="modal"
+                        >
+                          Close
+                        </button>
+                        <a href="cancelevent.php?event_id=<?php echo $eventID; ?>&source=event" class="btn btn-danger">
+                          Cancel Event
+                        </a>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <!-- modal register -->
+                <div class="modal fade" id="verticalycentered" tabindex="-1">
+                  <div class="modal-dialog modal-dialog-centered">
+                    <div class="modal-content">
+                      <div class="modal-header">
+                        <h5 class="modal-title">Register for <?php echo htmlspecialchars($event['event_name']); ?> ?</h5>
+                        <button
+                          type="button"
+                          class="btn-close"
+                          data-bs-dismiss="modal"
+                          aria-label="Close"
+                        ></button>
+                      </div>
+                      <div class="modal-footer">
+                        <button
+                          type="button"
+                          class="btn btn-secondary"
+                          data-bs-dismiss="modal"
+                        >
+                          Close
+                        </button>
+                        <a href="registerevent.php?event_id=<?php echo $eventID; ?>" class="btn btn-primary">
+                          Register Event
+                        </a>
+                      </div>
+                    </div>
+                  </div>
+                </div>
               </div>
             </div>
 <?php endif; ?>
