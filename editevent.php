@@ -1,6 +1,6 @@
 <?php
 $pagename = "Edit Event"; // INI "Profile" CONTOH DOANK, NANTI KALIAN GANTI SENDIRI DENGAN NAMA PAGE YANG KALIAN BUAT 
-$urlname = "index.php"; // INI "index.php" CONTOH DOANK, NANTI KALIAN GANTI SENDIRI DENGAN URL PAGE YANG KALIAN BUAT 
+$urlname = "adminevent.php"; // INI "index.php" CONTOH DOANK, NANTI KALIAN GANTI SENDIRI DENGAN URL PAGE YANG KALIAN BUAT 
 require 'database/config.php'; // config buat koneksi database doank
 require 'authentication.php'; // authentication buat atur session, dll
 
