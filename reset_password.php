@@ -1,6 +1,5 @@
 <?php
-// reset_password.php
-require 'database/config.php'; // config for database connection
+require 'database/config.php';
 
 $error = '';
 $success = '';
@@ -22,15 +21,16 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $user = $stmt->fetch(PDO::FETCH_ASSOC);
 
         if ($user) {
-            // Update the user's password
+            // Hash the new password
             $hashed_password = password_hash($new_password, PASSWORD_BCRYPT);
 
+            // Update the user's password and set the token to NULL
             $stmt = $pdo->prepare("UPDATE tb_user SET user_password = :password, reset_token = NULL WHERE reset_token = :token");
             $stmt->bindParam(':password', $hashed_password);
             $stmt->bindParam(':token', $token);
             $stmt->execute();
 
-            $success = "Your password has been successfully updated.";
+            $success = "Your password has been successfully updated. Please log in with your new password.";
         } else {
             $error = "Invalid token.";
         }
