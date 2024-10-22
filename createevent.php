@@ -15,13 +15,17 @@ if (isset($_POST["submit"])) {
     $etime = htmlspecialchars($_POST["event_time"]);
     $elocation = htmlspecialchars($_POST["event_location"]);
     $max = htmlspecialchars($_POST["max_participants"]);
-    $img = htmlspecialchars($_POST["event_image"]);
     $ebanner = htmlspecialchars($_POST["event_banner"]);
     $estatus = htmlspecialchars($_POST["event_status"]);
 
     //upload gambar
-    $pic = upload();
-    if (!$pic) {
+    $img = upload('event_image');
+    if (!$img) {
+        return false;
+    }
+
+    $ebanner = upload2('event_banner');
+    if (!$ebanner) {
         return false;
     }
 
@@ -31,7 +35,7 @@ if (isset($_POST["submit"])) {
     if (mysqli_affected_rows($link) > 0) {
         echo "<script>
                 alert('Data Berhasil Ditambahkan');
-                document.location.href = 'createevent.php';
+                document.location.href = 'adminevent.php';
               </script>
         ";
     } else {
@@ -63,14 +67,14 @@ function upload()
     $ekstensiGambarValid = ['jpg', 'jpeg', 'png'];
     $ekstensiGambar = explode('.', $namaFile);
     $ekstensiGambar = strtolower(end($ekstensiGambar));
-    if(!in_array($ekstensiGambar, $ekstensiGambarValid)){
+    if (!in_array($ekstensiGambar, $ekstensiGambarValid)) {
         echo "<script>
                 alert('File harus berbentuk gambar!');
             </script>";
     }
 
     //cek jika ukuran gambar terlalu besar
-    if( $ukuranFile > 10000000){
+    if ($ukuranFile > 10000000) {
         echo "<script>
                 alert('Ukuran gambar terlalu besar');
             </script>";
@@ -84,8 +88,48 @@ function upload()
     // persiapan gambar untuk diuplad 
     move_uploaded_file($tmpName, 'uploads/' . $namaFileBaru);
     return $namaFileBaru;
+}
 
+function upload2()
+{
+    $namaFile = $_FILES['event_banner']['name'];
+    $ukuranFile = $_FILES['event_banner']['size'];
+    $error = $_FILES['event_banner']['error'];
+    $tmpName = $_FILES['event_banner']['tmp_name'];
 
+    // cek gambar yang ga diupload
+    if ($error === 4) {
+        echo "<script>
+                alert('Please choose the image first!');
+            </script>";
+        return false;
+    }
+
+    // cek gambar atau bukan yang diupload
+    $ekstensiGambarValid = ['jpg', 'jpeg', 'png'];
+    $ekstensiGambar = explode('.', $namaFile);
+    $ekstensiGambar = strtolower(end($ekstensiGambar));
+    if (!in_array($ekstensiGambar, $ekstensiGambarValid)) {
+        echo "<script>
+                alert('File harus berbentuk gambar!');
+            </script>";
+    }
+
+    //cek jika ukuran gambar terlalu besar
+    if ($ukuranFile > 10000000) {
+        echo "<script>
+                alert('Ukuran gambar terlalu besar');
+            </script>";
+    }
+
+    //generate gambar
+    $namaFileBaru = uniqid();
+    $namaFileBaru .= '-';
+    $namaFileBaru .= $ekstensiGambar;
+
+    // persiapan gambar untuk diuplad 
+    move_uploaded_file($tmpName, 'uploads/' . $namaFileBaru);
+    return $namaFileBaru;
 }
 
 
@@ -108,7 +152,7 @@ require 'features/sidebar.php';
         <div class="container mb-5">
             <div class="form-group mb-4">
                 <label for="event_name">Event Name</label>
-                <input type="text" name="event_name" id="event_name" class="form-control" placeholder="Add New Event" required>
+                <input type="text" name="event_name" id="event_name" class="form-control" placeholder="Add New Event" required autofocus>
             </div>
             <div class="form-group mb-4">
                 <label for="event_description">Event Description</label>

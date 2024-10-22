@@ -30,9 +30,21 @@ function ubah($data)
     $etime = htmlspecialchars($_POST["event_time"]);
     $elocation = htmlspecialchars($_POST["event_location"]);
     $max = htmlspecialchars($_POST["max_participants"]);
-    $img = htmlspecialchars($_POST["event_image"]);
-    $ebanner = htmlspecialchars($_POST["event_banner"]);
     $estatus = htmlspecialchars($_POST["event_status"]);
+    $gambarLamaImage = htmlspecialchars($data["event_image_lama"]);
+    $gambarlamaBanner = htmlspecialchars($data["event_banner_lama"]);
+    //cek user pilih gambar baru apa engga
+    if ($_FILES["event_image"]["error"] === 4) {
+        $img = $gambarLamaImage;
+    } else {
+        $img = upload("event_image");
+    }
+
+    if ($_FILES["event_banner"]["error"] === 4) {
+        $ebanner = $gambarlamaBanner;
+    } else {
+        $ebanner = upload2("event_banner");
+    }
 
     $query = "UPDATE tb_event SET
                 event_name = '$ename',
@@ -50,6 +62,91 @@ function ubah($data)
 
     return mysqli_affected_rows($link);
 }
+
+function upload()
+{
+    $namaFile = $_FILES['event_image']['name'];
+    $ukuranFile = $_FILES['event_image']['size'];
+    $error = $_FILES['event_image']['error'];
+    $tmpName = $_FILES['event_image']['tmp_name'];
+
+    // cek gambar yang ga diupload
+    if ($error === 4) {
+        echo "<script>
+                alert('Please choose the image first!');
+            </script>";
+        return false;
+    }
+
+    // cek gambar atau bukan yang diupload
+    $ekstensiGambarValid = ['jpg', 'jpeg', 'png'];
+    $ekstensiGambar = explode('.', $namaFile);
+    $ekstensiGambar = strtolower(end($ekstensiGambar));
+    if (!in_array($ekstensiGambar, $ekstensiGambarValid)) {
+        echo "<script>
+                alert('File harus berbentuk gambar!');
+            </script>";
+    }
+
+    //cek jika ukuran gambar terlalu besar
+    if ($ukuranFile > 10000000) {
+        echo "<script>
+                alert('Ukuran gambar terlalu besar');
+            </script>";
+    }
+
+    //generate gambar
+    $namaFileBaru = uniqid();
+    $namaFileBaru .= '-';
+    $namaFileBaru .= $ekstensiGambar;
+
+    // persiapan gambar untuk diuplad 
+    move_uploaded_file($tmpName, 'uploads/' . $namaFileBaru);
+    return $namaFileBaru;
+}
+
+function upload2()
+{
+    $namaFile = $_FILES['event_banner']['name'];
+    $ukuranFile = $_FILES['event_banner']['size'];
+    $error = $_FILES['event_banner']['error'];
+    $tmpName = $_FILES['event_banner']['tmp_name'];
+
+    // cek gambar yang ga diupload
+    if ($error === 4) {
+        echo "<script>
+                alert('Please choose the image first!');
+            </script>";
+        return false;
+    }
+
+    // cek gambar atau bukan yang diupload
+    $ekstensiGambarValid = ['jpg', 'jpeg', 'png'];
+    $ekstensiGambar = explode('.', $namaFile);
+    $ekstensiGambar = strtolower(end($ekstensiGambar));
+    if (!in_array($ekstensiGambar, $ekstensiGambarValid)) {
+        echo "<script>
+                alert('File harus berbentuk gambar!');
+            </script>";
+    }
+
+    //cek jika ukuran gambar terlalu besar
+    if ($ukuranFile > 10000000) {
+        echo "<script>
+                alert('Ukuran gambar terlalu besar');
+            </script>";
+    }
+
+    //generate gambar
+    $namaFileBaru = uniqid();
+    $namaFileBaru .= '-';
+    $namaFileBaru .= $ekstensiGambar;
+
+    // persiapan gambar untuk diuplad 
+    move_uploaded_file($tmpName, 'uploads/' . $namaFileBaru);
+    return $namaFileBaru;
+}
+
 
 if (isset($_POST["submit"])) {
     if (ubah($_POST) > 0) {
@@ -91,10 +188,11 @@ require 'features/sidebar.php';
     <div class="container mb-5">
         <form action="" method="post" enctype="multipart/form-data">
             <input type="hidden" name="event_id" id="event_id" value="<?= $data["event_id"]; ?>">
-            <input type="hidden" name="event_image" id="event_image" value="<?= $data["event_image"]; ?>">
+            <input type="hidden" name="event_image_lama" id="event_image" value="<?= $data["event_image"]; ?>">
+            <input type="hidden" name="event_banner_lama" id="event_banner" value="<?= $data["event_banner"]; ?>">
 
             <div class="form-floating mb-4">
-                <input type="text" name="event_name" id="event_name" class="form-control" placeholder="Add New Event" required value="<?= $data["event_name"]; ?>">
+                <input type="text" name="event_name" id="event_name" class="form-control" placeholder="Add New Event" required value="<?= $data["event_name"]; ?>" autofocus>
                 <label for="event_name">Event Name</label>
             </div>
 
@@ -125,13 +223,13 @@ require 'features/sidebar.php';
 
             <div class="mb-4">
                 <label for="event_image">Event Image</label><br>
-                <img src="uploads/<?= $data["event_image"] ?>" width="100" alt="Event Image">
+                <img src="uploads/<?= $data["event_image"] ?>" width="120" alt="Event Image">
                 <input type="file" name="event_image" id="event_image" class="form-control mt-2">
             </div>
 
             <div class="mb-4">
                 <label for="event_banner">Event Banner</label><br>
-                <img src="uploads/<?= $data["event_banner"] ?>" width="150" alt="Event Banner">
+                <img src="uploads/<?= $data["event_banner"] ?>" width="120" alt="Event Banner">
                 <input type="file" name="event_banner" id="event_banner" class="form-control mt-2">
             </div>
 
