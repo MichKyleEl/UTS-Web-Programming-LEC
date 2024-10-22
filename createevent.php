@@ -31,7 +31,7 @@ if (isset($_POST["submit"])) {
     if (mysqli_affected_rows($link) > 0) {
         echo "<script>
                 alert('Data Berhasil Ditambahkan');
-                document.location.href = 'adminevent.php';
+                document.location.href = 'createevent.php';
               </script>
         ";
     } else {

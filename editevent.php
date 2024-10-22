@@ -77,68 +77,81 @@ require 'features/sidebar.php';
     button:hover {
         transition: all 0.3s ease;
         transform: scale(1.05);
+
+        label {
+            font-weight: 1000;
+        }
     }
 </style>
+<link href="https://stackpath.bootstrapcdn.com/bootstrap/5.1.0/css/bootstrap.min.css" rel="stylesheet">
 <main id="main" class="main">
     <?php
     require 'features/pagetitle.php';
     ?>
-    <form action="" method="post">
-        <input type="hidden" name="event_id" id="event_id" value="<?= $data["event_id"]; ?>">
-        <input type="hidden" name="event_image" id="event_image" value="<?= $data["event_image"]; ?>">
-        <div class="container mb-5">
-            <div class="form-group mb-4">
-                <label for="event_name">Event Name</label>
+    <div class="container mb-5">
+        <form action="" method="post" enctype="multipart/form-data">
+            <input type="hidden" name="event_id" id="event_id" value="<?= $data["event_id"]; ?>">
+            <input type="hidden" name="event_image" id="event_image" value="<?= $data["event_image"]; ?>">
+
+            <div class="form-floating mb-4">
                 <input type="text" name="event_name" id="event_name" class="form-control" placeholder="Add New Event" required value="<?= $data["event_name"]; ?>">
+                <label for="event_name">Event Name</label>
             </div>
-            <div class="form-group mb-4">
-                <label for="event_description">Event Description</label>
+
+            <div class="form-floating mb-4">
                 <textarea class="form-control" rows="3" name="event_description" id="event_description" placeholder="Description"><?= $data["event_description"]; ?></textarea>
+                <label for="event_description">Event Description</label>
             </div>
-            <div class="form-group mb-4">
+
+            <div class="form-floating mb-4">
+                <input type="text" name="event_date" id="event_date" class="form-control" placeholder="Event Date" required value="<?= $data["event_date"]; ?>">
                 <label for="event_date">Event Date</label>
-                <input type="text" name="event_date" id="event_date" class="form-control" required value="<?= $data["event_date"]; ?>">
             </div>
-            <div class="form-group mb-4">
+
+            <div class="form-floating mb-4">
+                <input type="text" name="event_time" id="event_time" class="form-control" placeholder="Event Time" required value="<?= $data["event_time"]; ?>">
                 <label for="event_time">Event Time</label>
-                <input type="text" name="event_time" id="event_time" class="form-control" placeholder="Duration" required value="<?= $data["event_time"]; ?>">
             </div>
-            <div class="form-group mb-4">
+
+            <div class="form-floating mb-4">
+                <input type="text" name="event_location" id="event_location" class="form-control" placeholder="Event Location" required value="<?= $data["event_location"]; ?>">
                 <label for="event_location">Event Location</label>
-                <input type="text" name="event_location" id="event_location" class="form-control" placeholder="Location" required value="<?= $data["event_location"]; ?>">
             </div>
-            <div class="form-group mb-4">
+
+            <div class="form-floating mb-4">
+                <input type="number" name="max_participants" id="max_participants" class="form-control" placeholder="Maximum Participants" value="<?= $data["max_participants"]; ?>">
                 <label for="max_participants">Maximum Participants</label>
-                <input type="number" name="max_participants" id="max_participants" class="form-control" placeholder="number of people" value="<?= $data["max_participants"]; ?>">
             </div>
-            <div class="form-group mb-4">
-                <label for="event_image">Image</label>
-                <img src="uploads/<?= $data["event_image"] ?>" width="100" alt="">
-                <input type="file" name="event_image" id="event_image" class="form-control" placeholder="number of people">
+
+            <div class="mb-4">
+                <label for="event_image">Event Image</label><br>
+                <img src="uploads/<?= $data["event_image"] ?>" width="100" alt="Event Image">
+                <input type="file" name="event_image" id="event_image" class="form-control mt-2">
             </div>
-            <div class="form-group mb-4">
-                <label for="event_banner">Banner</label>
-                <img src="uploads/<?= $data["event_banner"] ?>" width="150">
-                <input type="file" name="event_banner" id="event_banner" class="form-control" placeholder="number of people">
+
+            <div class="mb-4">
+                <label for="event_banner">Event Banner</label><br>
+                <img src="uploads/<?= $data["event_banner"] ?>" width="150" alt="Event Banner">
+                <input type="file" name="event_banner" id="event_banner" class="form-control mt-2">
             </div>
-            <div class="form-group mb-5">
-                <label for="event_status">Status</label>
-                <select class="form-control" name="event_status" id="event_status" required value="<?= $data["event_status"]; ?>">
-                    <option value="Open">Open</option>
-                    <option value="Closed">Closed</option>
-                    <option value="Canceled">Canceled</option>
+
+            <div class="form-floating mb-5">
+                <select class="form-control" name="event_status" id="event_status" required>
+                    <option value="Open" <?= $data["event_status"] == "Open" ? "selected" : "" ?>>Open</option>
+                    <option value="Closed" <?= $data["event_status"] == "Closed" ? "selected" : "" ?>>Closed</option>
+                    <option value="Canceled" <?= $data["event_status"] == "Canceled" ? "selected" : "" ?>>Canceled</option>
                 </select>
-
-                <button class="mt-5 btn btn-primary me-2" type="submit" name="submit">Change</button>
-                <button class="mt-5 btn btn-danger" type="reset" name="reset">Reset</button>
+                <label for="event_status">Status</label>
             </div>
 
-    </form>
+            <button class="btn btn-primary me-2" type="submit" name="submit">Change</button>
+            <button class="btn btn-danger" type="reset" name="reset">Reset</button>
+        </form>
     </div>
 
 
 </main>
-<!-- end main -->
+
 
 <?php
 require 'features/footer.php';

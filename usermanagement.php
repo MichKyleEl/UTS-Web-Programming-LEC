@@ -29,36 +29,39 @@ require 'features/sidebar.php';
     <?php
     require 'features/pagetitle.php';
     ?>
-    NAH INI KONTEN KALIAN
-
-    <div class="table-responsive">
-        <table class="table table-striped table-hover datatable">
-            <thead>
-                <tr>
-                    <th>Actions</th>
-                    <th>User_name</th>
-                    <th>User Email</th>
-                    <th>User Password</th>
-                    <th>Role</th>
-                    <th>Created at</th>
-                </tr>
-            </thead>
-            <tbody>
-                <?php $i = 1; ?>
-                <?php foreach ($tabelevent as $row) : ?>
+    User Management Table
+    <div class="container mb-4">
+        <div class="table-responsive mt-2">
+            <table class="table table-striped table-hover table-bordered">
+                <thead class="table-dark">
                     <tr>
-                        </td>
-                        <td><a href="deleteuser.php?user_id=<?= $row["user_id"]; ?>" onclick="return confirm('Are you sure want to delete this account?');" class=" btn btn-danger btn-sm">Delete User account</a></td>
-                        <td><?= $row["user_name"]; ?></td>
-                        <td><?= $row["user_email"]; ?></td>
-                        <td><?= $row["user_password"]; ?></td>
-                        <td><?= $row["role"]; ?></td>
-                        <td><?= $row["created_at"]; ?></td>
+                        <th>Actions</th>
+                        <th>User_name</th>
+                        <th>User Email</th>
+                        <th>User Password</th>
+                        <th>Role</th>
+                        <th>Created at</th>
+                        <th>Foto</th>
                     </tr>
-                    <?php $i++; ?>
-                <?php endforeach; ?>
-            </tbody>
-        </table>
+                </thead>
+                <tbody>
+                    <?php $i = 1; ?>
+                    <?php foreach ($tabelevent as $row) : ?>
+                        <tr>
+                            </td>
+                            <td><a href="deleteuser.php?user_id=<?= $row["user_id"]; ?>" onclick="return confirm('Are you sure want to delete this account?');" class=" btn btn-danger btn-sm">Delete User account</a></td>
+                            <td><?= $row["user_name"]; ?></td>
+                            <td><?= $row["user_email"]; ?></td>
+                            <td><?= $row["user_password"]; ?></td>
+                            <td><?= $row["role"]; ?></td>
+                            <td><?= $row["created_at"]; ?></td>
+                            <td><?= $row["foto"]; ?></td>
+                        </tr>
+                        <?php $i++; ?>
+                    <?php endforeach; ?>
+                </tbody>
+            </table>
+        </div>
     </div>
 
 </main>

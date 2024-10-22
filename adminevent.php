@@ -31,6 +31,7 @@ $tabelevent = query("SELECT * FROM tb_event");
     <?php
     require 'features/pagetitle.php';
     ?>
+    List of existing events
     <div class="table-responsive">
         <table class="table table-striped table-hover datatable">
             <thead>
@@ -52,7 +53,7 @@ $tabelevent = query("SELECT * FROM tb_event");
                 <?php foreach ($tabelevent as $row) : ?>
                     <tr>
                         <td><a href="delete.php?event_id=<?= $row["event_id"]; ?>" onclick="return confirm('Are you sure want to delete this data?');" class="btn btn-danger btn-sm">Delete</a>
-                        <a href="editevent.php?event_id=<?= $row["event_id"]; ?>" class="btn btn-warning mt-1">Edit</a>
+                            <a href="editevent.php?event_id=<?= $row["event_id"]; ?>" class="btn btn-warning mt-1">Edit</a>
                         </td>
                         <td><?= $row["event_name"]; ?></td>
                         <td><?= $row["event_description"]; ?></td>
