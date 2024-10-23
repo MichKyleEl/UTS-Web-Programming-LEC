@@ -2,7 +2,7 @@
 $pagename = "Signup";
 $urlname = "signup.php";
 require 'database/config.php'; // config for database connection
-require 'authentication.php'; // authentication to manage sessions, etc.
+require 'authentication.php';
 require 'features/head.php';
 
 // Initialize variables
@@ -39,7 +39,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
             if ($stmt->execute()) {
                 // Account creation success
-                $success = "Account created successfully! You can now log in.";
+                $success = "Account created successfully! You can now <a href = 'login.php'>log in</a>.";
             } else {
                 $error = "Error creating account. Please try again.";
             }
