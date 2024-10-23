@@ -15,7 +15,6 @@ if (isset($_POST["submit"])) {
     $etime = htmlspecialchars($_POST["event_time"]);
     $elocation = htmlspecialchars($_POST["event_location"]);
     $max = htmlspecialchars($_POST["max_participants"]);
-    $ebanner = htmlspecialchars($_POST["event_banner"]);
     $estatus = htmlspecialchars($_POST["event_status"]);
 
     //upload gambar
