@@ -30,7 +30,7 @@ $registeredEvents = $reg->fetchAll(PDO::FETCH_ASSOC);
 <?php if (empty($registeredEvents)) : ?>
     <p class="text-center">You have not registered for any events yet.</p>
 <?php else : ?>
-    <table class="table table-borderless">
+    <table class="table table-borderless" id="table2" style="overflow-x: auto;">
         <thead>
             <tr>
                 <th scope="col" class="banner-column-rounded">Banner</th>
