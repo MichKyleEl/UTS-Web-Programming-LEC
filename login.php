@@ -31,6 +31,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                     // Credentials are correct for admin, set session variables
                     $_SESSION['user_name'] = $user['user_name'];
                     $_SESSION['user_role'] = $user['role'];
+                    $_SESSION['user_email'] = $user['user_email'];
+                    $_SESSION['user_foto'] = $user['foto'];
+                    $_SESSION['user_id'] = $user['user_id'];
 
                     // Redirect to admin dashboard
                     header("Location: admin.php");
@@ -106,6 +109,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                                         <button class="btn btn-primary w-100" type="submit">Login</button>
                                     </div>
                                     <div class="col-12">
+                                        <p class="small">
+                                            <a href="forgot_password.php">Forgot Password?</a>
+                                        </p>
                                         <p class="small mb-0">
                                             Don't have account? <a href="signup.php">Create an account</a>
                                         </p>

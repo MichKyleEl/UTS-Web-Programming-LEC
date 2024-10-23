@@ -228,7 +228,7 @@ try {
                             }
                         </style>
 
-                        <table class="table table-borderless">
+                        <table class="table table-border">
                             <thead>
                                 <tr>
                                     <th scope="col" class="banner-column">Banner</th>
@@ -286,10 +286,42 @@ try {
                     </div>
                 </div>
             </div>
+
+            <div class="card mb-3">
+                <div class="col-lg-12">
+                    <table id="table1" class="display table-striped table" style="width:100%">
+                        <thead>
+                            <tr>
+                                <th>Name</th>
+                                <th>Position</th>
+                                <th>Office</th>
+                                <th>Age</th>
+                                <th>Start date</th>
+                                <th>Salary</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>Tiger Nixon</td>
+                                <td>System Architect</td>
+                                <td>Edinburgh</td>
+                                <td>61</td>
+                                <td>2011-04-25</td>
+                                <td>$320,800</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+
+
         </div>
     </section>
+
 </main>
 <!-- end main -->
+
 
 <?php
 require 'features/footer.php';
