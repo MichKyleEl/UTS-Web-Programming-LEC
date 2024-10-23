@@ -54,7 +54,7 @@ try {
         </div>
         <div class="col-md-8">
             <div class="card-body">
-            <h5 class="card-title"><a href="eventdetails.php?eid=<?php echo $event['event_id'] ?>" style="text-decoration:none;color:black;"><?php echo htmlspecialchars($event['event_name']); ?></a></h5>
+            <h5 class="card-title"><a href="eventdetails.php?eid=<?php echo $event['event_id'] ?>"><?php echo htmlspecialchars($event['event_name']); ?></a></h5>
             <p class="card-text">
             <?php echo htmlspecialchars($event['event_description']); ?>
             </p>
