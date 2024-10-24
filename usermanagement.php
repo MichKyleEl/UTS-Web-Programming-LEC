@@ -1,6 +1,6 @@
 <?php
 $pagename = "User Management"; // INI "Profile" CONTOH DOANK, NANTI KALIAN GANTI SENDIRI DENGAN NAMA PAGE YANG KALIAN BUAT 
-$urlname = "usermanagement.php"; // INI "index.php" CONTOH DOANK, NANTI KALIAN GANTI SENDIRI DENGAN URL PAGE YANG KALIAN BUAT 
+$urlname = "index.php"; // INI "index.php" CONTOH DOANK, NANTI KALIAN GANTI SENDIRI DENGAN URL PAGE YANG KALIAN BUAT 
 require 'database/config.php'; // config buat koneksi database doank
 require 'authentication.php'; // authentication buat atur session, dll
 
@@ -17,7 +17,7 @@ function query($query)
     return $data_rows;
 }
 
-$tabelevent = query("SELECT * FROM tb_user");
+$tabelevent = query("SELECT * FROM tb_user WHERE role != 'admin'");
 
 
 require 'features/navbar.php';
@@ -49,7 +49,7 @@ require 'features/sidebar.php';
                         <tr>
                             <td>
                                 <a href="deleteuser.php?user_id=<?= $row["user_id"]; ?>" onclick="return confirm('Are you sure want to delete this account?');" class=" btn btn-danger btn-sm">Delete User account</a>
-                                <a href="history.php" class="btn btn-primary">History</a>
+                                <a href="history.php?user_id=<?= $row['user_id']; ?>" class="btn btn-primary">History</a>
                             </td>
                             <td><?= $row["user_name"]; ?></td>
                             <td><?= $row["user_email"]; ?></td>
