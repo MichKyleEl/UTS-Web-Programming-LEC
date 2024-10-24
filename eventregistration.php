@@ -30,6 +30,7 @@ $registeredEvents = $reg->fetchAll(PDO::FETCH_ASSOC);
 <?php if (empty($registeredEvents)) : ?>
     <p class="text-center">You have not registered for any events yet.</p>
 <?php else : ?>
+    <div class="card" style="padding:20px; border-radius:15px">
     <table class="table table-borderless" id="table2" style="overflow-x: auto;">
         <thead>
             <tr>
@@ -101,6 +102,7 @@ $registeredEvents = $reg->fetchAll(PDO::FETCH_ASSOC);
             <?php endforeach; ?>
         </tbody>
     </table>
+</div>
 <?php endif; ?>
 
 </main>
