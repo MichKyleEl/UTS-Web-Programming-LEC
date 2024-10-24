@@ -7,7 +7,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET' && isset($_GET['event_id'])) {
     $source = $_GET['source'];
     $userId = $_SESSION['user_id'];
 
-    $cancelQuery = $pdo->prepare("DELETE FROM tb_registration WHERE user_id = :user_id AND event_id = :event_id");
+    $cancelQuery = $pdo->prepare("UPDATE tb_registration 
+        SET status = 'canceled', registration_date = NOW() 
+        WHERE user_id = :user_id AND event_id = :event_id");
     
     try {
         $cancelQuery->execute([
