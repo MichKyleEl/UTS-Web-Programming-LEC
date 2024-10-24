@@ -29,8 +29,6 @@ require 'features/sidebar.php';
     <?php
     require 'features/pagetitle.php';
     ?>
-    NAH INI KONTEN KALIAN
-
     <div class="table-responsive">
         <table class="table table-striped table-hover datatable">
             <thead>
