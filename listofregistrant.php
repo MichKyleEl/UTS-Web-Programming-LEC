@@ -30,7 +30,7 @@ require 'features/sidebar.php';
     require 'features/pagetitle.php';
     ?>
     <div class="card mb-3" style="padding:20px; border-radius:15px">
-        User Management Table
+        List Registrant Event User
         <div class="container mb-4">
             <div class="table-responsive mt-2">
                 <table class="table table-striped table-hover">
@@ -49,7 +49,6 @@ require 'features/sidebar.php';
                         <?php foreach ($tabelevent as $row) : ?>
                             <tr>
                                 <td>
-                                    <a href="deleteuser.php?user_id=<?= $row["user_id"]; ?>" onclick="return confirm('Are you sure want to delete this account?');" class=" btn btn-danger btn-sm">Delete User account</a>
                                     <a href="listeventuser.php?user_id=<?= $row['user_id']; ?>" class="btn btn-primary btn-sm">List Event</a>
                                 </td>
                                 <td><?= $row["user_name"]; ?></td>
