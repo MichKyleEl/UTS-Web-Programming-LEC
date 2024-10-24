@@ -16,6 +16,19 @@ require 'features/sidebar.php';
 <?php
 require 'features/alert.php';
 require 'features/pagetitle.php'; 
+
+$userId = $_SESSION['user_id'];
+
+$historyQuery = $pdo->prepare("
+    SELECT e.event_name, e.event_date
+    FROM tb_registration r
+    JOIN tb_event e ON r.event_id = e.event_id
+    WHERE r.user_id = :user_id
+    ORDER BY e.event_date DESC
+");
+$historyQuery->execute([':user_id' => $userId]);
+$eventHistory = $historyQuery->fetchAll(PDO::FETCH_ASSOC);
+
 ?>
 
 <section class="section profile">
@@ -41,10 +54,19 @@ require 'features/pagetitle.php';
               <div class="card-body pt-3">
                 <!-- Bordered Tabs -->
                 <ul class="nav nav-tabs nav-tabs-bordered">
+                <li class="nav-item">
+                    <button
+                      class="nav-link active"
+                      data-bs-toggle="tab"
+                      data-bs-target="#profile-overview"
+                    >
+                      Overview
+                    </button>
+                  </li>
 
                   <li class="nav-item">
                     <button
-                      class="nav-link active"
+                      class="nav-link"
                       data-bs-toggle="tab"
                       data-bs-target="#profile-edit"
                     >
@@ -63,8 +85,47 @@ require 'features/pagetitle.php';
                   </li>
                 </ul>
                 <div class="tab-content pt-2">
+                <div
+                    class="tab-pane fade show active profile-overview"
+                    id="profile-overview"
+                  >
+                    <h5 class="card-title">Profile Details</h5>
+
+                    <div class="row">
+                      <div class="col-lg-3 col-md-4 label">Full Name</div>
+                      <div class="col-lg-9 col-md-8"><?php echo htmlspecialchars($name); ?></div>
+                    </div>
+
+                    <div class="row">
+                      <div class="col-lg-3 col-md-4 label">Email</div>
+                      <div class="col-lg-9 col-md-8">
+                      <?php echo htmlspecialchars($email); ?>
+                      </div>
+                    </div>
+
+                    <div class="row">
+                      <div class="col-lg-3 col-md-4 label">Role</div>
+                      <div class="col-lg-9 col-md-8"><?php echo htmlspecialchars($role); ?></div>
+                    </div>
+
+                    <h5 class="card-title">History Of Registered Events</h5>
+                    <p class="small fst-italic">
+                    <?php if (empty($eventHistory)) : ?>
+                                <p class="small fst-italic">You haven't registered to any Events.</p>
+                            <?php else : ?>
+                                <ul class="list-group">
+                                    <?php foreach ($eventHistory as $event) : ?>
+                                        <li class="list-group-item">
+                                            <strong><?php echo htmlspecialchars($event['event_name']); ?></strong>
+                                            <span class="text-muted"> - <?php echo htmlspecialchars($event['event_date']); ?></span>
+                                        </li>
+                                    <?php endforeach; ?>
+                                </ul>
+                            <?php endif; ?>
+                    </p>
+                  </div>
                   <div
-                    class="tab-pane fade show active profile-edit pt-3"
+                    class="tab-pane fade profile-edit pt-3"
                     id="profile-edit"
                   >
                     <!-- Profile Edit Form -->

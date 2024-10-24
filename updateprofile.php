@@ -7,6 +7,19 @@ $name = $_POST['name'];
 $email = $_POST['email'];
 $id = $_POST['hiddenID'];
 
+$email_check_query = "SELECT user_id FROM tb_user WHERE user_email = :email AND user_id != :id";
+$email_check_stmt = $pdo->prepare($email_check_query);
+$email_check_stmt->bindParam(':email', $email);
+$email_check_stmt->bindParam(':id', $id);
+$email_check_stmt->execute();
+$email_exists = $email_check_stmt->fetch(PDO::FETCH_ASSOC);
+
+if ($email_exists) {
+    $_SESSION['alert'] = ['type' => 'danger', 'message' => 'This email is already in use by another account. Please use a different email.'];
+    header('Location: index.php');
+    exit();
+}
+
 $select_query = "SELECT foto FROM tb_user WHERE user_id = :id";
 $select_stmt = $pdo->prepare($select_query);
 $select_stmt->bindParam(':id', $id);
