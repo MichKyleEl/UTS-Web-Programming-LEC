@@ -31,7 +31,7 @@ $tabelevent = query("SELECT * FROM tb_event");
     <?php
     require 'features/pagetitle.php';
     ?>
-    <div class="card mb-3">
+    <div class="card mb-3" style="padding:20px; border-radius:15px">
         List of existing events
         <div class="table-responsive">
             <table class="table table-striped table-hover display" id="table6">
