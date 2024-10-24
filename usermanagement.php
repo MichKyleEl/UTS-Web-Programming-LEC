@@ -38,7 +38,6 @@ require 'features/sidebar.php';
                         <th>Actions</th>
                         <th>User_name</th>
                         <th>User Email</th>
-                        <th>User Password</th>
                         <th>Role</th>
                         <th>Created at</th>
                         <th>Foto</th>
@@ -52,7 +51,6 @@ require 'features/sidebar.php';
                             <td><a href="deleteuser.php?user_id=<?= $row["user_id"]; ?>" onclick="return confirm('Are you sure want to delete this account?');" class=" btn btn-danger btn-sm">Delete User account</a></td>
                             <td><?= $row["user_name"]; ?></td>
                             <td><?= $row["user_email"]; ?></td>
-                            <td><?= $row["user_password"]; ?></td>
                             <td><?= $row["role"]; ?></td>
                             <td><?= $row["created_at"]; ?></td>
                             <td><?= $row["foto"]; ?></td>
