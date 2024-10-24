@@ -20,11 +20,11 @@ require 'features/pagetitle.php';
 $userId = $_SESSION['user_id'];
 
 $historyQuery = $pdo->prepare("
-    SELECT e.event_name, e.event_date
+    SELECT e.event_name, e.event_date, r.registration_date
     FROM tb_registration r
     JOIN tb_event e ON r.event_id = e.event_id
     WHERE r.user_id = :user_id
-    ORDER BY e.event_date DESC
+    ORDER BY r.registration_date ASC
 ");
 $historyQuery->execute([':user_id' => $userId]);
 $eventHistory = $historyQuery->fetchAll(PDO::FETCH_ASSOC);
@@ -118,6 +118,7 @@ $eventHistory = $historyQuery->fetchAll(PDO::FETCH_ASSOC);
                                         <li class="list-group-item">
                                             <strong><?php echo htmlspecialchars($event['event_name']); ?></strong>
                                             <span class="text-muted"> - <?php echo htmlspecialchars($event['event_date']); ?></span>
+                                            <span class="text-muted"> | Registered in <strong><?php echo date('j F Y', strtotime($event['registration_date'])); ?></strong></span>
                                         </li>
                                     <?php endforeach; ?>
                                 </ul>
