@@ -202,12 +202,12 @@ require 'features/sidebar.php';
             </div>
 
             <div class="form-floating mb-4">
-                <input type="text" name="event_date" id="event_date" class="form-control" placeholder="Event Date" required value="<?= $data["event_date"]; ?>">
+                <input type="date" name="event_date" id="event_date" class="form-control" placeholder="Event Date" required value="<?= $data["event_date"]; ?>">
                 <label for="event_date">Event Date</label>
             </div>
 
             <div class="form-floating mb-4">
-                <input type="text" name="event_time" id="event_time" class="form-control" placeholder="Event Time" required value="<?= $data["event_time"]; ?>">
+                <input type="time" name="event_time" id="event_time" class="form-control" placeholder="Event Time" required value="<?= $data["event_time"]; ?>">
                 <label for="event_time">Event Time</label>
             </div>
 

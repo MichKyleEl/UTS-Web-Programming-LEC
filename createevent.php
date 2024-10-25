@@ -159,11 +159,11 @@ require 'features/sidebar.php';
             </div>
             <div class="form-group mb-4">
                 <label for="event_date">Event Date</label>
-                <input type="text" name="event_date" id="event_date" class="form-control" required>
+                <input type="date" name="event_date" id="event_date" class="form-control" required>
             </div>
             <div class="form-group mb-4">
                 <label for="event_time">Event Time</label>
-                <input type="text" name="event_time" id="event_time" class="form-control" placeholder="Duration" required>
+                <input type="time" name="event_time" id="event_time" class="form-control" placeholder="Duration" required>
             </div>
             <div class="form-group mb-4">
                 <label for="event_location">Event Location</label>
