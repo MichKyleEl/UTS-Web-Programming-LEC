@@ -69,6 +69,8 @@ require 'features/pagetitle.php';
                   >
                     <!-- Profile Edit Form -->
                     <form action="updateprofile.php" METHOD="POST" enctype="multipart/form-data">
+                      <input type="hidden" name="hiddenID" value="<?= $id; ?>">
+                      <input type="hidden" name="hiddenFoto" value="<?= $foto; ?>">
                       <div class="row mb-3">
                         <label
                           for="profileImage"
