@@ -17,7 +17,12 @@ function query($query)
     return $data_rows;
 }
 
-$tabelevent = query("SELECT * FROM tb_user WHERE role != 'admin'");
+$tabelevent = query("
+    SELECT DISTINCT u.user_id, u.user_name, u.user_email, u.role, u.created_at, u.foto
+    FROM tb_user u
+    INNER JOIN tb_registration r ON u.user_id = r.user_id
+    WHERE u.role != 'admin'
+");
 
 
 require 'features/navbar.php';
@@ -29,42 +34,43 @@ require 'features/sidebar.php';
     <?php
     require 'features/pagetitle.php';
     ?>
-    User Management Table
-    <div class="container mb-4">
-        <div class="table-responsive mt-2">
-            <table class="table table-striped table-hover table-bordered">
-                <thead class="table-dark">
-                    <tr>
-                        <th>Actions</th>
-                        <th>User_name</th>
-                        <th>User Email</th>
-                        <th>Role</th>
-                        <th>Created at</th>
-                        <th>Foto</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <?php $i = 1; ?>
-                    <?php foreach ($tabelevent as $row) : ?>
+    <div class="card mb-3" style="padding:20px; border-radius:15px">
+        User Management Table
+        <div class="container mb-4">
+            <div class="table-responsive mt-2">
+                <table class="table table-striped table-hover" id="table6">
+                    <thead class="table-dark">
                         <tr>
-                            <td>
-                                <a href="deleteuser.php?user_id=<?= $row["user_id"]; ?>" onclick="return confirm('Are you sure want to delete this account?');" class=" btn btn-danger btn-sm">Delete User account</a>
-                                <a href="listusermanagement.php?user_id=<?= $row['user_id']; ?>" class="btn btn-primary">History</a>
-                            </td>
-                            <td><?= $row["user_name"]; ?></td>
-                            <td><?= $row["user_email"]; ?></td>
-                            <td><?= $row["role"]; ?></td>
-                            <td><?= $row["created_at"]; ?></td>
-                            <td>
-                                <img src="uploads/profile/<?=$row["foto"]; ?>" alt="Profile Picture" style="max-width: 50px; max-height: 50px;">
-                            </td>
+                            <th>Actions</th>
+                            <th>User_name</th>
+                            <th>User Email</th>
+                            <th>Role</th>
+                            <th>Created at</th>
+                            <th>Foto</th>
                         </tr>
-                        <?php $i++; ?>
-                    <?php endforeach; ?>
-                </tbody>
-            </table>
+                    </thead>
+                    <tbody>
+                        <?php $i = 1; ?>
+                        <?php foreach ($tabelevent as $row) : ?>
+                            <tr>
+                                <td>
+                                    <a href="deleteuser.php?user_id=<?= $row["user_id"]; ?>" onclick="return confirm('Are you sure want to delete this account?');" class=" btn btn-danger btn-sm">Delete User account</a>
+                                    <a href="listusermanagement.php?user_id=<?= $row['user_id']; ?>" class="btn btn-primary">History</a>
+                                </td>
+                                <td><?= $row["user_name"]; ?></td>
+                                <td><?= $row["user_email"]; ?></td>
+                                <td><?= $row["role"]; ?></td>
+                                <td><?= $row["created_at"]; ?></td>
+                                <td>
+                                    <img src="uploads/profile/<?= $row["foto"]; ?>" alt="Profile Picture" style="max-width: 50px; max-height: 50px;">
+                                </td>
+                            </tr>
+                            <?php $i++; ?>
+                        <?php endforeach; ?>
+                    </tbody>
+                </table>
+            </div>
         </div>
-    </div>
 
 </main>
 <!-- end main -->

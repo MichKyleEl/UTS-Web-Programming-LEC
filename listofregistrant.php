@@ -17,7 +17,12 @@ function query($query)
     return $data_rows;
 }
 
-$tabelevent = query("SELECT * FROM tb_user WHERE role != 'admin'");
+$tabelevent = query("
+        SELECT DISTINCT u.user_id, u.user_name, u.user_email, u.role, u.created_at, u.foto
+        FROM tb_user u
+        INNER JOIN tb_registration r ON u.user_id = r.user_id
+        WHERE u.role != 'admin'
+        ");
 
 
 require 'features/navbar.php';
@@ -33,7 +38,7 @@ require 'features/sidebar.php';
         List Registrant Event User
         <div class="container mb-4">
             <div class="table-responsive mt-2">
-                <table class="table table-striped table-hover">
+                <table class="table table-striped table-hover" id="table6">
                     <thead class="table-dark">
                         <tr>
                             <th>Actions</th>
