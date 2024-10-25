@@ -18,12 +18,11 @@ function query($query)
 }
 
 $tabelevent = query("
-        SELECT DISTINCT u.user_id, u.user_name, u.user_email, u.role, u.created_at, u.foto
-        FROM tb_user u
-        INNER JOIN tb_registration r ON u.user_id = r.user_id
-        WHERE u.role != 'admin'
-        ");
-
+    SELECT DISTINCT u.*
+    FROM tb_user u
+    JOIN tb_registration r ON u.user_id = r.user_id
+    WHERE u.role != 'admin'
+");
 
 require 'features/navbar.php';
 require 'features/sidebar.php';

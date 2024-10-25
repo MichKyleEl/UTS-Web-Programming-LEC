@@ -28,7 +28,8 @@ if (isset($_POST["submit"])) {
         return false;
     }
 
-    $query = "INSERT INTO tb_event VALUES ('', '$ename', '$edescription', '$edate', '$etime', '$elocation', '$max', '$img', '$ebanner', '$estatus')";
+    $query = "INSERT INTO tb_event (event_id, event_name, event_description, event_date, event_time, event_location, max_participants, event_image, event_banner, event_status) 
+    VALUES ('', '$ename', '$edescription', '$edate', '$etime', '$elocation', '$max', '$img', '$ebanner', '$estatus')";
     mysqli_query($link, $query);
 
     if (mysqli_affected_rows($link) > 0) {
