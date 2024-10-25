@@ -77,7 +77,7 @@
 
 <script>
     document.addEventListener('DOMContentLoaded', function() {
-        const city = 'Kota Tangerang'; // You can change the city
+        const city = 'Jakarta'; // You can change the city
         const url = `https://wttr.in/${city}?format=%C+%t&lang=en`;
 
         fetch(url)
