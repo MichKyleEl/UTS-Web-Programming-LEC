@@ -16,12 +16,12 @@ require 'features/sidebar.php';
 
     $userId = $_SESSION['user_id']; // Get the logged-in user ID
 
-    // Fetch events the user has registered for (filter by status registered only)
+    // Fetch events the user has registered for
     $reg = $pdo->prepare("
     SELECT e.* 
     FROM tb_registration r
     JOIN tb_event e ON r.event_id = e.event_id
-    WHERE r.user_id = :user_id AND r.status = 'registered'
+    WHERE r.user_id = :user_id
 ");
     $reg->execute([':user_id' => $userId]);
     $registeredEvents = $reg->fetchAll(PDO::FETCH_ASSOC);
