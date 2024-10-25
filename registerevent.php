@@ -6,7 +6,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET' && isset($_GET['event_id'])) {
     $eventID = $_GET['event_id'];
     $userId = $_SESSION['user_id'];
 
-    $registerQuery = $pdo->prepare("INSERT INTO tb_registration (user_id, event_id) VALUES (:user_id, :event_id)");
+    $registerQuery = $pdo->prepare("INSERT INTO tb_registration (user_id, event_id, registration_date, status) 
+        VALUES (:user_id, :event_id, NOW(), 'registered')");
 
     try {
         $registerQuery->execute([

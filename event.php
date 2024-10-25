@@ -1,10 +1,8 @@
 <?php
-$pagename = "Event"; // INI "Profile" CONTOH DOANK, NANTI KALIAN GANTI SENDIRI DENGAN NAMA PAGE YANG KALIAN BUAT 
-$urlname = "event.php"; // INI "DASHBOARD" CONTOH DOANK, NANTI KALIAN GANTI SENDIRI DENGAN NAMA PAGE YANG KALIAN BUAT 
-require 'database/config.php'; // config buat koneksi database doank
-require 'authentication.php'; // authentication buat atur session, dll
-
-
+$pagename = "Event";
+$urlname = "event.php";
+require 'database/config.php';
+require 'authentication.php';
 
 require 'features/navbar.php';
 require 'features/sidebar.php';
@@ -17,28 +15,13 @@ require 'features/sidebar.php';
     require 'features/pagetitle.php';
 
     try {
-        // Prepare query to get event names and number of registrants
-        $stmt = $pdo->prepare("
-        SELECT 
-            e.event_name, 
-            COUNT(r.registration_id) AS registrant_count 
-        FROM tb_event e 
-        LEFT JOIN tb_registration r ON e.event_id = r.event_id 
-        GROUP BY e.event_id
-    ");
-        $stmt->execute();
-    } catch (PDOException $e) {
-        echo "Error: " . $e->getMessage();
-    }
-
-    try {
-        $stmt = $pdo->prepare("SELECT * FROM tb_event WHERE event_status = 'open'");
+        // Prepare query to get all events
+        $stmt = $pdo->prepare("SELECT * FROM tb_event");
         $stmt->execute();
         $events = $stmt->fetchAll(PDO::FETCH_ASSOC);
     } catch (PDOException $e) {
         echo "Error: " . $e->getMessage();
     }
-
     ?>
 
     <?php foreach ($events as $event) : ?>
