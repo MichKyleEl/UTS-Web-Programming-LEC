@@ -7,13 +7,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET' && isset($_GET['event_id'])) {
     $userId = $_SESSION['user_id'];
 
     $registerQuery = $pdo->prepare("INSERT INTO tb_registration (user_id, event_id) VALUES (:user_id, :event_id)");
-    
+
     try {
         $registerQuery->execute([
             ':user_id' => $userId,
             ':event_id' => $eventID
         ]);
-        
+
         $_SESSION['alert'] = ['type' => 'success', 'message' => 'Event has been registered.'];
         header("Location: event.php");
         exit();
@@ -23,4 +23,3 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET' && isset($_GET['event_id'])) {
 } else {
     echo "Invalid request.";
 }
-?>

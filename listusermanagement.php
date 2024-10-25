@@ -15,7 +15,7 @@ $user = mysqli_fetch_assoc($userResult);
 
 // Fetch registration history
 $historyQuery = "
-    SELECT e.event_name, e.event_date, e.event_time, e.event_location, e.event_description, r.registration_date
+    SELECT e.event_name, e.event_date, e.event_time, e.event_location, e.event_description, r.status, r.registration_date
     FROM tb_registration r
     JOIN tb_event e ON r.event_id = e.event_id
     WHERE r.user_id = $Id
@@ -63,9 +63,9 @@ require 'features/sidebar.php';
                                 <td><?= htmlspecialchars($history['event_location']); ?></td>
                                 <td><?= htmlspecialchars($history['event_description']); ?></td>
                                 <td>
-                                    <?php if ($history['event_status'] === 'open') : ?>
+                                    <?php if ($history['status'] === 'registered') : ?>
                                         <span class="badge bg-success">Registered</span>
-                                    <?php elseif ($history['event_status'] === 'closed')  : ?>
+                                    <?php else : ?>
                                         <span class="badge bg-danger">Canceled</span>
                                     <?php endif; ?>
                                 </td>
