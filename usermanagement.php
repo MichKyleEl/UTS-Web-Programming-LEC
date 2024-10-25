@@ -48,9 +48,9 @@ require 'features/sidebar.php';
                         <?php $i = 1; ?>
                         <?php foreach ($tabelevent as $row) : ?>
                             <tr>
-                                <td>
+                                <td class="center text-center">
                                     <a href="deleteuser.php?user_id=<?= $row["user_id"]; ?>" onclick="return confirm('Are you sure want to delete this account?');" class=" btn btn-danger btn-sm">Delete User account</a>
-                                    <a href="listusermanagement.php?user_id=<?= $row['user_id']; ?>" class="btn btn-primary">History</a>
+                                    <a href="listusermanagement.php?user_id=<?= $row['user_id']; ?>" class="btn btn-primary mt-1">History</a>
                                 </td>
                                 <td><?= $row["user_name"]; ?></td>
                                 <td><?= $row["user_email"]; ?></td>

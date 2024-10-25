@@ -15,7 +15,7 @@ $user = mysqli_fetch_assoc($userResult);
 
 // Fetch registration history
 $historyQuery = "
-    SELECT e.event_name, e.event_date, e.event_time, e.event_location, e.event_description, r.status, r.registration_date
+    SELECT e.event_name, e.event_date, e.event_time, e.event_location, e.event_description, e.event_status, r.registration_date
     FROM tb_registration r
     JOIN tb_event e ON r.event_id = e.event_id
     WHERE r.user_id = $Id
@@ -36,46 +36,49 @@ require 'features/sidebar.php';
     <?php
     require 'features/pagetitle.php';
     ?>
+    <div class="card mb-3" style="padding:20px; border-radius:15px">
+        <div class="container mb-4">
+            User History for <?= htmlspecialchars($user['user_name']); ?>
 
-    <div class="container mb-4">
-        <h2 class="mb-3">User History for <?= htmlspecialchars($user['user_name']); ?></h2>
-
-        <?php if (empty($historyData)) : ?>
-            <p class="text-center">This user has no history yet.</p>
-        <?php else : ?>
-            <div class="table-responsive">
-                <table class="table table-striped table-hover table-bordered" id="table6">
-                    <thead class="table-dark">
-                        <tr>
-                            <th>Event Name</th>
-                            <th>Date & Time</th>
-                            <th>Location</th>
-                            <th>Description</th>
-                            <th>Status</th>
-                            <th>Registration Date</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <?php foreach ($historyData as $history) : ?>
+            <?php if (empty($historyData)) : ?>
+                <p class="text-center">This user has no history yet.</p>
+            <?php else : ?>
+                <div class="table-responsive">
+                    <table class="table table-striped table-hover table-bordered" id="table6">
+                        <thead class="table-dark">
                             <tr>
-                                <td><?= htmlspecialchars($history['event_name']); ?></td>
-                                <td><?= htmlspecialchars($history['event_date']) . ' ' . htmlspecialchars($history['event_time']); ?></td>
-                                <td><?= htmlspecialchars($history['event_location']); ?></td>
-                                <td><?= htmlspecialchars($history['event_description']); ?></td>
-                                <td>
-                                    <?php if ($history['status'] === 'registered') : ?>
-                                        <span class="badge bg-success">Registered</span>
-                                    <?php else : ?>
-                                        <span class="badge bg-danger">Canceled</span>
-                                    <?php endif; ?>
-                                </td>
-                                <td><?= htmlspecialchars($history['registration_date']); ?></td>
+                                <th>Event Name</th>
+                                <th>Date & Time</th>
+                                <th>Location</th>
+                                <th>Description</th>
+                                <th>Status</th>
+                                <th>Registration Date</th>
                             </tr>
-                        <?php endforeach; ?>
-                    </tbody>
-                </table>
-            </div>
-        <?php endif; ?>
+                        </thead>
+                        <tbody>
+                            <?php foreach ($historyData as $history) : ?>
+                                <tr>
+                                    <td><?= htmlspecialchars($history['event_name']); ?></td>
+                                    <td><?= htmlspecialchars($history['event_date']) . ' ' . htmlspecialchars($history['event_time']); ?></td>
+                                    <td><?= htmlspecialchars($history['event_location']); ?></td>
+                                    <td><?= htmlspecialchars($history['event_description']); ?></td>
+                                    <td>
+                                        <?php if ($history['event_status'] === 'open') : ?>
+                                            <span class="badge bg-success">Registered</span>
+                                        <?php elseif ($history['event_status'] === 'canceled') : ?>
+                                            <span class="badge bg-danger">Canceled</span>
+                                        <?php else : ?>
+                                            <span class="badge bg-warning">Closed</span>
+                                        <?php endif; ?>
+                                    </td>
+                                    <td><?= htmlspecialchars($history['registration_date']); ?></td>
+                                </tr>
+                            <?php endforeach; ?>
+                        </tbody>
+                    </table>
+                </div>
+            <?php endif; ?>
+        </div>
     </div>
 </main>
 <!-- end main -->
