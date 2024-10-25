@@ -1,8 +1,8 @@
 <?php
-$pagename = "List Of Registrant"; // INI "Profile" CONTOH DOANK, NANTI KALIAN GANTI SENDIRI DENGAN NAMA PAGE YANG KALIAN BUAT 
-$urlname = "listofregistrant.php"; // INI "index.php" CONTOH DOANK, NANTI KALIAN GANTI SENDIRI DENGAN URL PAGE YANG KALIAN BUAT 
-require 'database/config.php'; // config buat koneksi database doank
-require 'authentication.php'; // authentication buat atur session, dll
+$pagename = "List Of Registrant";
+$urlname = "listofregistrant.php";
+require 'database/config.php'; // config for database connection
+require 'authentication.php'; // for session management
 
 $link = mysqli_connect('localhost', 'root', '', 'db_eventsystem');
 
@@ -17,8 +17,15 @@ function query($query)
     return $data_rows;
 }
 
-$tabelevent = query("SELECT * FROM tb_user WHERE role != 'admin'");
-
+// Query to select users with at least one registered event
+$tabelevent = query("
+    SELECT u.*, COUNT(r.event_id) AS event_count
+    FROM tb_user u
+    JOIN tb_registration r ON u.user_id = r.user_id
+    WHERE u.role != 'admin'
+    GROUP BY u.user_id
+    HAVING event_count > 0
+");
 
 require 'features/navbar.php';
 require 'features/sidebar.php';
@@ -26,47 +33,40 @@ require 'features/sidebar.php';
 
 <!-- main -->
 <main id="main" class="main">
-    <?php
-    require 'features/pagetitle.php';
-    ?>
+    <?php require 'features/pagetitle.php'; ?>
+
     <div class="card mb-3" style="padding:20px; border-radius:15px">
         List Registrant Event User
         <div class="container mb-4">
             <div class="table-responsive mt-2">
-                <table class="table table-striped table-hover">
+                <table class="table table-striped table-hover" id="table4">
                     <thead class="table-dark">
                         <tr>
-                            <th>Actions</th>
-                            <th>User_name</th>
+                            <th>User Name</th>
                             <th>User Email</th>
                             <th>Role</th>
                             <th>Created at</th>
                             <th>Foto</th>
+                            <th>Number of Registered Events</th>
                         </tr>
                     </thead>
                     <tbody>
-                        <?php $i = 1; ?>
                         <?php foreach ($tabelevent as $row) : ?>
                             <tr>
-                                <td>
-                                    <a href="listeventuser.php?user_id=<?= $row['user_id']; ?>" class="btn btn-primary btn-sm">List Event</a>
-                                </td>
                                 <td><?= $row["user_name"]; ?></td>
                                 <td><?= $row["user_email"]; ?></td>
                                 <td><?= $row["role"]; ?></td>
                                 <td><?= $row["created_at"]; ?></td>
-                                <td><?= $row["foto"]; ?></td>
+                                <td><img src="uploads/profile/<?= $row["foto"]; ?>" class="img-fluid rounded-start" alt="..." /></td>
+                                <td><?= $row["event_count"]; ?></td>
                             </tr>
-                            <?php $i++; ?>
                         <?php endforeach; ?>
                     </tbody>
                 </table>
             </div>
         </div>
-
+    </div>
 </main>
 <!-- end main -->
 
-<?php
-require 'features/footer.php';
-?>
+<?php require 'features/footer.php'; ?>

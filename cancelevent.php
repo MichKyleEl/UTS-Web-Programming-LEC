@@ -7,16 +7,14 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET' && isset($_GET['event_id'])) {
     $source = $_GET['source'];
     $userId = $_SESSION['user_id'];
 
-    $cancelQuery = $pdo->prepare("UPDATE tb_registration 
-        SET status = 'canceled', registration_date = NOW() 
-        WHERE user_id = :user_id AND event_id = :event_id");
-    
+    $cancelQuery = $pdo->prepare("DELETE FROM tb_registration WHERE user_id = :user_id AND event_id = :event_id");
+
     try {
         $cancelQuery->execute([
             ':user_id' => $userId,
             ':event_id' => $eventID
         ]);
-        
+
         $_SESSION['alert'] = ['type' => 'success', 'message' => 'Event has been cancelled.'];
         if ($source === 'event') {
             header("Location: event.php");
@@ -30,6 +28,5 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET' && isset($_GET['event_id'])) {
         $_SESSION['alert'] = ['type' => 'danger', 'message' => "Error: " . $e->getMessage()];
     }
 } else {
-    echo "Invalid request.";
+    echo "Invalid request.";
 }
-?>
