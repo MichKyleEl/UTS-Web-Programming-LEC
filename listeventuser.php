@@ -1,8 +1,8 @@
 <?php
 $pagename = "List Event User";
-$urlname = "listofregistrant.php"; 
-require 'database/config.php'; 
-require 'authentication.php'; 
+$urlname = "listofregistrant.php";
+require 'database/config.php';
+require 'authentication.php';
 
 $link = mysqli_connect('localhost', 'root', '', 'db_eventsystem');
 
