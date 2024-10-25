@@ -55,7 +55,7 @@ require 'features/sidebar.php';
                                 <td><?= $row["user_email"]; ?></td>
                                 <td><?= $row["role"]; ?></td>
                                 <td><?= $row["created_at"]; ?></td>
-                                <td><?= $row["foto"]; ?></td>
+                                <td><img src="uploads/profile/<?= $row["foto"]; ?>" alt="Profile Picture" style="max-width: 50px; max-height: 50px;"></td>
                             </tr>
                             <?php $i++; ?>
                         <?php endforeach; ?>
